@@ -12,3 +12,4 @@ for each row:
 
 return (mostConstrainedXPos, mostConstrainedYPos)
 ```
+psuedocode for mostConstrained function

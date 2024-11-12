@@ -107,8 +107,25 @@ class Board:
             a tuple of row, column index identifying the most constrained cell
         """
 
+
+        shortest_list_length = 9  # Maximum constraint size since each cell can have 1-9 possibilities
+        most_constrained_x_pos = -1
+        most_constrained_y_pos = -1
+
+        for i in range(self.size):
+                for j in range(self.size):
+                    cell = self.rows[i][j]
+                    if isinstance(cell, list):  # Only check cells with lists of possibilities
+                        cell_length = len(cell)
+                        if 1 < cell_length < shortest_list_length:  # Ignore fully assigned cells
+                            shortest_list_length = cell_length
+                            most_constrained_x_pos = i
+                            most_constrained_y_pos = j
+
+                    return (most_constrained_x_pos, most_constrained_y_pos)
+
         #loop through everything and find 
-        pass
+        
 
     def failure_test(self) -> bool:
         """Check if we've failed to correctly fill out the puzzle. If we find a cell
@@ -303,11 +320,13 @@ if __name__ == "__main__":
 
     # ##Now, let's write some quick tests to check update!
     # #Create a sudoku board.
-    # g = Board()
-    # #Place the 28 assignments in first_moves on the board.
-    # for trip in first_moves:
-    #     g.update(trip[0],trip[1],trip[2])
-    # g.print_pretty()
+    g = Board()
+    #Place the 28 assignments in first_moves on the board.
+    for trip in first_moves:
+        g.update(trip[0],trip[1],trip[2])
+    g.print_pretty()
+
+    print(g)
     # #From the above print statement, you can see which numbers
     # #  have been assigned to the board, and then create test
     # #  cases by looking at the board and listing what values are
