@@ -57,8 +57,10 @@ class Board:
     def __str__(self) -> str:
         """String representation of the board"""
         row_str = ""
+        row_num = 0
         for r in self.rows:
-            row_str += f"{r}\n"
+            row_str += f"Row {row_num}: {r}\n"
+            row_num += 1
 
         return f"num_nums_placed: {self.num_nums_placed}\nboard (rows): \n{row_str}"
 
@@ -66,7 +68,7 @@ class Board:
         """Prints all numbers assigned to cells, excluding lists of possible numbers
         that can still be assigned to cells"""
         row_str = ""
-        for i, r in enumerate(self.rows):  #enumerate - 
+        for i, r in enumerate(self.rows):
             if not i % 3:
                 row_str += " -------------------------\n"
 
@@ -106,26 +108,18 @@ class Board:
         Returns:
             a tuple of row, column index identifying the most constrained cell
         """
-
-
-        shortest_list_length = 9  # Maximum constraint size since each cell can have 1-9 possibilities
-        most_constrained_x_pos = -1
-        most_constrained_y_pos = -1
-
+        mini = 9
+        row = 0
+        column = 0
         for i in range(self.size):
-                for j in range(self.size):
-                    cell = self.rows[i][j]
-                    if isinstance(cell, list):  # Only check cells with lists of possibilities
-                        cell_length = len(cell)
-                        if 1 < cell_length < shortest_list_length:  # Ignore fully assigned cells
-                            shortest_list_length = cell_length
-                            most_constrained_x_pos = i
-                            most_constrained_y_pos = j
-
-                    return (most_constrained_x_pos, most_constrained_y_pos)
-
-        #loop through everything and find 
-        
+            for j in range(self.size):
+                cell = self.rows[i][j]
+                if isinstance(cell, list) and len(cell) < mini:
+                    mini = len(cell)
+                    row = i
+                    column = j
+                    # print(row, column, mini)
+        return (row, column)
 
     def failure_test(self) -> bool:
         """Check if we've failed to correctly fill out the puzzle. If we find a cell
@@ -158,19 +152,16 @@ class Board:
             column - index of the column to assign
             assignment - value to place at given row, column coordinate
         """
+        self.rows[row][column] = assignment
 
-        for i in range: (self.size)
-
-        remove_if_exists(self.rows[row][i], assignment)
+        for i in range(self.size):
+            # remove the assignment from the row
+            remove_if_exists(self.rows[row][i], assignment)
             # remove the assignment from the column
-        remove_if_exists(self.rows[i][column], assignment)
+            remove_if_exists(self.rows[i][column], assignment)
 
-        print(self.subgrid_coordinates(row, column))
         for i, j in self.subgrid_coordinates(row, column):
             remove_if_exists(self.rows[i][j], assignment)
-
-       
-
 
 def DFS(state: Board) -> Board:
     """Performs a depth first search. Takes a Board and attempts to assign values to
@@ -205,6 +196,20 @@ def BFS(state: Board) -> Board:
 if __name__ == "__main__":
     # uncomment the below lines once you've implemented the board class
    
+    # b = Board()
+    # print(b)
+    # b.print_pretty()
+    # b.update(0, 0, 1)
+    # b.update(0, 2, 2)
+    # b.update(1, 0, 9)
+    # b.update(1, 1, 8)
+    # b.update(0, 4, 3)
+    # b.update(1, 3, 2)
+    # b.update(1,6, 4)
+    # b.update(1, 8, 3)
+    # print(b)
+    # b.print_pretty()
+
     # # CODE BELOW HERE RUNS YOUR BFS/DFS
     # print("<<<<<<<<<<<<<< Solving Sudoku >>>>>>>>>>>>>>")
 
@@ -324,9 +329,9 @@ if __name__ == "__main__":
     #Place the 28 assignments in first_moves on the board.
     for trip in first_moves:
         g.update(trip[0],trip[1],trip[2])
+    # print(g)
     g.print_pretty()
-
-    print(g)
+    print(g.find_most_constrained_cell())
     # #From the above print statement, you can see which numbers
     # #  have been assigned to the board, and then create test
     # #  cases by looking at the board and listing what values are
