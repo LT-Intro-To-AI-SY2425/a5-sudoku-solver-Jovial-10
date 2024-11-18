@@ -248,19 +248,19 @@ def BFS(state: Board) -> Board:
 if __name__ == "__main__":
     # uncomment the below lines once you've implemented the board class
    
-    # b = Board()
-    # print(b)
-    # b.print_pretty()
-    # b.update(0, 0, 1)
-    # b.update(0, 2, 2)
-    # b.update(1, 0, 9)
-    # b.update(1, 1, 8)
-    # b.update(0, 4, 3)
-    # b.update(1, 3, 2)
-    # b.update(1,6, 4)
-    # b.update(1, 8, 3)
-    # print(b)
-    # b.print_pretty()
+    b = Board()
+    print(b)
+    b.print_pretty()
+    b.update(0, 0, 1)
+    b.update(0, 2, 2)
+    b.update(1, 0, 9)
+    b.update(1, 1, 8)
+    b.update(0, 4, 3)
+    b.update(1, 3, 2)
+    b.update(1,6, 4)
+    b.update(1, 8, 3)
+    print(b)
+    b.print_pretty()
 
     # CODE BELOW HERE RUNS YOUR BFS/DFS
     print("<<<<<<<<<<<<<< Solving Sudoku >>>>>>>>>>>>>>")
