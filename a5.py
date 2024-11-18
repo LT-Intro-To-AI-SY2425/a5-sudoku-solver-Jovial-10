@@ -179,7 +179,31 @@ def DFS(state: Board) -> Board:
     Returns:
         either None in the case of invalid input or a solved board
     """
-    pass
+    stack = Stack()
+    stack.push(state)
+
+    while not stack.is_empty():
+        current_board = stack.pop()
+
+        # Check if the current board is a solution
+        if current_board.goal_test():
+            return current_board
+
+        # Skip boards that have failed
+        if current_board.failure_test():
+            continue
+
+        # Find the most constrained cell
+        row, col = current_board.find_most_constrained_cell()
+
+        # Try all possible assignments for the most constrained cell
+        for assignment in current_board.rows[row][col]:
+            # Create a deep copy of the board to avoid modifying the original
+            new_board = copy.deepcopy(current_board)
+            new_board.update(row, col, assignment)
+            stack.push(new_board)
+
+    return None 
 
 
 def BFS(state: Board) -> Board:
@@ -194,7 +218,31 @@ def BFS(state: Board) -> Board:
     Returns:
         either None in the case of invalid input or a solved board
     """
-    pass
+    queue = Queue()
+    queue.enqueue(state)
+
+    while not queue.is_empty():
+        current_board = queue.dequeue()
+
+        # Check if the current board is a solution
+        if current_board.goal_test():
+            return current_board
+
+        # Skip boards that have failed
+        if current_board.failure_test():
+            continue
+
+        # Find the most constrained cell
+        row, col = current_board.find_most_constrained_cell()
+
+        # Try all possible assignments for the most constrained cell
+        for assignment in current_board.rows[row][col]:
+            # Create a deep copy of the board to avoid modifying the original
+            new_board = copy.deepcopy(current_board)
+            new_board.update(row, col, assignment)
+            queue.enqueue(new_board)
+
+    return None
 
 
 if __name__ == "__main__":
