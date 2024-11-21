@@ -32,4 +32,4 @@ Since stack goes LIFO, the solutions were found more easily and more straightfor
 
 3. Considering the current implementation, how might the Sudoku solver be adapted or extended for larger puzzles or different types of grid-based logic games? How can the lessons learned from this assignment be applied to real-world problem-solving or optimization challenges?
 
-I think a solver problem like could be made more complex to complete games like checkers, chess, monopoly (potentially, etc. I think applying concepts like BFS and DFS would make other programs similar to the sudoku solver easier to complete. 
+I think a solver problem like this could be made more complex to complete more advanced games like checkers, chess, monopoly (potentially), etc. I think applying concepts like BFS and DFS would make other programs similar to the sudoku solver easier to complete. 
